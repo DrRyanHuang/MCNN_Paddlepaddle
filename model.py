@@ -1,6 +1,29 @@
+# -*- coding: utf-8 -*-
+"""
+@author: RyanHuang
+@github: DrRyanHuang
+
+
+@updateTime: 2020.7.26
+@brife: 复现论文MCNN的主干结构
+@notice:
+    If you have suggestions or find bugs, please be sure to tell me. Thanks!
+    仍未完成，尽情期待. 但可以运行！
+"""
 class CONVLMS(fluid.dygraph.Layer):
 
     def __init__(self, channel_list, filter_list, use_bias=False):
+    	'''
+    	@Brife:
+    		建立MCNN中任意一列的CNN, 用于为后续的MCNN做准备
+    	@Param:
+    		channel_list : MCNN中，每一列CNN有4次卷积，该变量用于存放4次卷积的卷积核个数
+    		filter_list  : MCNN中，每一列CNN有4次卷积，该变量用于存放4次卷积的卷积核size
+    	@Return:
+			当前列的输出
+    	@Notice:
+    		None
+    	'''
         super(CONVLMS, self).__init__()
 
         self.conv1 = Conv2D(
@@ -91,10 +114,22 @@ class CONVLMS(fluid.dygraph.Layer):
 
         return conv4
 
+
+
+
 class MCNN(fluid.dygraph.Layer):
 
-    
     def __init__(self):
+    	'''
+    	@Brife:
+    		此model为论文MCNN的主干结构
+    	@Param:
+    		None
+    	@Return:
+			(暂缺)
+    	@Notice:
+    		返回四个变量，为了预训练方便
+    	'''
         
         super(MCNN,self).__init__()
         
