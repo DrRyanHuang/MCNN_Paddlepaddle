@@ -1,25 +1,26 @@
-`dataÎÄ¼ş¼Ğ` £º ĞèÒª×ÔĞĞÏÂÔØÊı¾İ¼¯
+ï»¿ä»åœ¨æ›´æ–°ä¸­......
+`dataæ–‡ä»¶å¤¹` ï¼š éœ€è¦è‡ªè¡Œä¸‹è½½æ•°æ®é›†
 
 
 
-	`MCNN.ipynb`    ÎªÊµÏÖMCNN½øĞĞÈËÁ÷ÃÜ¶È¹À¼ÆµÄ´úÂë
-	`SANet.ipynb`    ÎªÊµÏÖSANet½øĞĞÈËÁ÷ÃÜ¶È¹À¼ÆµÄ´úÂë
-	(×¢: ´úÂëÔÚÊ¹ÓÃÊ±ĞèÒª¸ü¸ÄÊı¾İ¼¯µÄÎ»ÖÃ)
+	`MCNN.ipynb`    ä¸ºå®ç°MCNNè¿›è¡Œäººæµå¯†åº¦ä¼°è®¡çš„ä»£ç 
+	`SANet.ipynb`    ä¸ºå®ç°SANetè¿›è¡Œäººæµå¯†åº¦ä¼°è®¡çš„ä»£ç 
+	(æ³¨: ä»£ç åœ¨ä½¿ç”¨æ—¶éœ€è¦æ›´æ”¹æ•°æ®é›†çš„ä½ç½®)
 
-	`MCNN.pdparams`   ÎªMCNNÄ£ĞÍµÄ²ÎÊı
-	`SANet.pdparams`   ÎªSANetÄ£ĞÍµÄ²ÎÊı
+	`MCNN.pdparams`   ä¸ºMCNNæ¨¡å‹çš„å‚æ•°
+	`SANet.pdparams`   ä¸ºSANetæ¨¡å‹çš„å‚æ•°
 
-	`SimHei.ttf`	ttf×ÖÌå
+	`SimHei.ttf`	ttfå­—ä½“
 	
-	`util.py`	ÆÕÍ¨µÄ¹¤¾ß°ü
-	`new_util.py`	×¨ÎªÉÏº£techÊı¾İ¼¯ÉèÖÃµÄ¹¤¾ß°ü
-	`model.py`	°üÀ¨ MCNN/SAnet/VGG/GoogLeNet/ResNet/DenseNet¶¼ÓĞ
+	`util.py`	æ™®é€šçš„å·¥å…·åŒ…
+	`new_util.py`	ä¸“ä¸ºä¸Šæµ·techæ•°æ®é›†è®¾ç½®çš„å·¥å…·åŒ…
+	`model.py`	åŒ…æ‹¬ MCNN/SAnet/VGG/GoogLeNet/ResNet/DenseNetéƒ½æœ‰
 
-	`dataÎÄ¼ş¼Ğ`	´æ·ÅÉÏº£techÊı¾İ¼¯
+	`dataæ–‡ä»¶å¤¹`	å­˜æ”¾ä¸Šæµ·techæ•°æ®é›†
 	
 
-	`A_test_gt.txt` 	ÉÏº£techÊı¾İ¼¯Ô¤´¦ÀíÎÄ¼ş
-	`A_test_img.txt`	ÉÏº£techÊı¾İ¼¯Ô¤´¦ÀíÎÄ¼ş
-	`A_train_gt.txt`	ÉÏº£techÊı¾İ¼¯Ô¤´¦ÀíÎÄ¼ş
-	`A_train_img.txt`	ÉÏº£techÊı¾İ¼¯Ô¤´¦ÀíÎÄ¼ş
+	`A_test_gt.txt` 	ä¸Šæµ·techæ•°æ®é›†é¢„å¤„ç†æ–‡ä»¶
+	`A_test_img.txt`	ä¸Šæµ·techæ•°æ®é›†é¢„å¤„ç†æ–‡ä»¶
+	`A_train_gt.txt`	ä¸Šæµ·techæ•°æ®é›†é¢„å¤„ç†æ–‡ä»¶
+	`A_train_img.txt`	ä¸Šæµ·techæ•°æ®é›†é¢„å¤„ç†æ–‡ä»¶
 
