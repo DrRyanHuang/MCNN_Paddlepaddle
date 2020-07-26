@@ -10,6 +10,44 @@
     If you have suggestions or find bugs, please be sure to tell me. Thanks!
 """
 
+class ConvBNLayer(fluid.dygraph.Layer):
+    '''
+    @Brife:
+        `ConvBNLayer` 类就是简单的 `Conv + BN` 类
+    @Notice:
+        `Conv` 无激活函数, `BN` 那儿有激活函数
+    '''
+    def __init__(self,
+                 num_filters,
+                 num_channels,
+                 filter_size,
+                 stride=1,
+                 groups=1,              # group参数暂时不用改
+                 act='relu',
+                 name_scope=None,
+                 use_bias=False):
+
+        super(ConvBNLayer, self).__init__(name_scope)
+
+        self._conv = Conv2D(
+            num_channels=num_channels,
+            num_filters=num_filters,
+            filter_size=filter_size,
+            stride=stride,
+            padding=(filter_size - 1) // 2,
+            groups=groups,
+            act=None,
+            bias_attr=use_bias)
+
+        self._batch_norm = BatchNorm(num_filters, act=act)
+
+    def forward(self, inputs):
+        y = self._conv(inputs)
+        y = self._batch_norm(y)
+        return y
+
+
+
 class CONVLMS(fluid.dygraph.Layer):
 
     def __init__(self, channel_list, filter_list, use_bias=False, name_scope=None):
@@ -28,28 +66,23 @@ class CONVLMS(fluid.dygraph.Layer):
     	'''
         super(CONVLMS, self).__init__(name_scope)
 
-        self.conv1 = Conv2D(
+        self.conv_bn1 = ConvBNLayer(
                 num_channels=3, 
                 num_filters=channel_list[0], 
                 filter_size=filter_list[0], 
-                stride=1, 
                 padding=filter_list[0]//2, 
-                act=None, 
-                bias_attr=use_bias
-        )
+                act='relu',
+                name_scope=self.full_name()
+				)
 
-        self.batch_norm1 = fluid.BatchNorm(channel_list[0], act='relu')
-
-        self.conv2 = Conv2D(
+        self.conv_bn2 = ConvBNLayer(
                 num_channels=channel_list[0], 
                 num_filters=channel_list[1], 
                 filter_size=filter_list[1], 
-                stride=1, 
                 padding=filter_list[1]//2, 
-                act=None, 
-                bias_attr=use_bias)
-        
-        self.batch_norm2 = fluid.BatchNorm(channel_list[1], act='relu')
+                act='relu', 
+                name_scope=self.full_name()
+				)
 
         self.pool1 = Pool2D(
                 pool_size = 2,
@@ -57,16 +90,14 @@ class CONVLMS(fluid.dygraph.Layer):
                 pool_stride = 2,
                 global_pooling = False,)
 
-        self.conv3 = Conv2D(
+        self.conv_bn3 = ConvBNLayer(
                 num_channels=channel_list[1], 
                 num_filters=channel_list[2], 
                 filter_size=filter_list[2], 
-                stride=1, 
                 padding=filter_list[2]//2, 
-                act=None, 
-                bias_attr=use_bias)
-
-        self.batch_norm3 = fluid.BatchNorm(channel_list[2], act='relu')
+                act='relu',
+                name_scope=self.full_name()
+				)
 
         self.pool2 = Pool2D(
                 pool_size = 2,
@@ -74,69 +105,57 @@ class CONVLMS(fluid.dygraph.Layer):
                 pool_stride = 2,
                 global_pooling = False,)
 
-        self.conv4 = Conv2D(
+        self.conv_bn4 = ConvBNLayer(
                 num_channels=channel_list[2], 
                 num_filters=channel_list[3], 
                 filter_size=filter_list[3], 
-                stride=1, 
                 padding=filter_list[3]//2, 
-                act=None, 
-                bias_attr=use_bias)
-        
-        self.batch_norm4 = fluid.BatchNorm(channel_list[3], act='relu')
-
+                act='relu',
+                name_scope=self.full_name()
+				)
 
     def forward(self, inputs):
 
-        conv1 = self.conv1(inputs)
-        # print(conv1.shape)
-        conv1 = self.batch_norm1(conv1)
-        # print(conv1.shape)
+        conv_bn1 = self.conv_bn1(inputs)
+        # print(conv_bn1.shape)
 
-        conv2 = self.conv2(conv1)
-        # print(conv2.shape)
-        conv2 = self.batch_norm2(conv2)
-        # print(conv2.shape)
+        conv_bn2 = self.conv_bn2(conv1)
+        # print(conv_bn2.shape)
 
         pool1 = self.pool1(conv2)
         # print(pool1.shape, 'pool')
 
-        conv3 = self.conv3(pool1)
-        # print(conv3.shape)
-        conv3 = self.batch_norm3(conv3)
-        # print(conv3.shape)
+        conv_bn3 = self.conv_bn3(pool1)
+        # print(conv_bn3.shape)
 
         pool2 = self.pool2(conv3)
         # print(pool2.shape, 'pool')
 
-        conv4 = self.conv4(pool2)
-        # print(conv4.shape)
-        conv4 = self.batch_norm4(conv4)
-        # print(conv4.shape)
+        conv_bn4 = self.conv_bn4(pool2)
+        # print(conv_bn4.shape)
 
-        return conv4
-
+        return conv_bn4
 
 
 
 class MCNN(fluid.dygraph.Layer):
 
     
-    def __init__(self, use_bias=False):
+    def __init__(self, use_bias=False, name_scope=None):
         
-        super(MCNN,self).__init__()
+        super(MCNN, self).__init__(name_scope)
         
         channel_list_L = [16, 32, 16, 8]
         filter_list_L = [9, 7, 7, 7]
-        self.CNN_L = CONVLMS(channel_list_L, filter_list_L, 'CNN_L')
+        self.CNN_L = CONVLMS(channel_list_L, filter_list_L, self.full_name())
         
         channel_list_M = [20, 40, 20, 10]
         filter_list_M = [7, 5, 5, 5]
-        self.CNN_M = CONVLMS(channel_list_M, filter_list_M, 'CNN_M')
+        self.CNN_M = CONVLMS(channel_list_M, filter_list_M, self.full_name())
         
         channel_list_S = [24, 48, 24, 12]
         filter_list_S = [5, 3, 3, 3]
-        self.CNN_S = CONVLMS(channel_list_S, filter_list_S, 'CNN_S')
+        self.CNN_S = CONVLMS(channel_list_S, filter_list_S, self.full_name())
         
         self.convall = Conv2D(
                         num_channels=30, 
@@ -152,7 +171,7 @@ class MCNN(fluid.dygraph.Layer):
         # 以上MCNN结构复现完毕
         # -----------------------------------------------------------------------------             
         self.convS = Conv2D(
-                        num_channels=12, 
+                        num_channels=channel_list_S[-1], 
                         num_filters=1, 
                         filter_size=1,
                         stride=1, 
@@ -161,7 +180,7 @@ class MCNN(fluid.dygraph.Layer):
                         bias_attr=use_bias)
         
         self.convM = Conv2D(
-                        num_channels=10, 
+                        num_channels=channel_list_M[-1], 
                         num_filters=1, 
                         filter_size=1,
                         stride=1, 
@@ -170,7 +189,7 @@ class MCNN(fluid.dygraph.Layer):
                         bias_attr=use_bias)
         
         self.convL = Conv2D(
-                        num_channels=8, 
+                        num_channels=channel_list_L[-1], 
                         num_filters=1, 
                         filter_size=1,
                         stride=1, 
@@ -179,19 +198,34 @@ class MCNN(fluid.dygraph.Layer):
                         bias_attr=use_bias)
 
 
-    def forward(self, inputs, ):
-    
+    def forward(self, inputs, pre_training=None):
+    	'''
+    	@Notice:
+    		`pre_training` 为 `None`时, 不进行预训练
+    		为 `'L', 'M', 'S'` 时, 进行对应的预训练
+    	'''
+    	if pre_training not in [None, 'L', 'M', 'S']:
+    		raise ValueError("变量`pre_training`的取值范围为`[None, 'L', 'M', 'S']`")
+
         cnn_L = self.CNN_L(inputs)
         cnn_M = self.CNN_M(inputs)
         cnn_S = self.CNN_S(inputs)
         
-        conv_L = self.convL(cnn_L)
-        conv_M = self.convM(cnn_M)
-        conv_S = self.convS(cnn_S)
+        if pre_training is None:
+
+	        convall_pre = concat([cnn_L, cnn_M, cnn_S], axis=1)
+	        # print(convall_pre.shape)
+	        convall = self.convall(convall_pre)
+	        # print(convall.shape)
+	        return convall
         
-        convall_pre = concat([cnn_L, cnn_M, cnn_S], axis=1)
-        # print(convall_pre.shape)
-        convall = self.convall(convall_pre)
-        # print(convall.shape)
-        
-        return convall, conv_L, conv_M, conv_S
+        # ------------ 进行预训练的部分 ------------
+ 
+        elif pre_training is 'L':
+        	conv_pre = self.convL(cnn_L)
+        elif pre_training is 'M':
+        	conv_pre = self.convM(cnn_M)
+        else:
+        	conv_pre = self.convS(cnn_S)
+	    
+	    return conv_pre
