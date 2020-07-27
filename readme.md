@@ -37,5 +37,10 @@ MCNN在训练时，存在<b>数据样本少和梯度消失</b>的问题，受预
 
 <p>
 论文中使用<b>几何自适应高斯核</b>去计算数据图片的Ground Truth：
+</p>
+<img src="https://github.com/DrRyanHuang/MCNN_Paddlepaddle/blob/master/src/formula.jpeg"  alt="公式" width="800" height="300"/>
 
-<img src="https://github.com/DrRyanHuang/MCNN_Paddlepaddle/blob/master/src/formula.jpeg"  alt="公式" />
+
+<p>
+在<b>Figure 2</b>中，显示了两张图片的人群密度图。值得说明的是，由于经过了两次下采样，所以预测出人群密度图的分辨率变为原来的1/4.
+</p>
