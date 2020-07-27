@@ -30,3 +30,10 @@ MCNN受MDNNs的启发，由三列并行的CNN组成，每列CNN卷积核大小�
 <p align="center"><b>图 1</b>：用于人群密度图估计的多列卷积神经网络(MCNN)的结构<br/>
 <b>Figure 1</b>：The structure of the proposed multi-column convolutional neural network for crowd density map estimation.</p>
 
+
+<p>
+MCNN在训练时，存在<b>数据样本少和梯度消失</b>的问题，受预训练模型RBM的启发，作者将三列CNN单独进行预训练，将这些预训练的CNN参数初始化为对应的MCNN参数并微调。需要补充的是，MCNN使用了最简单的均方误差作为损失函数。
+</p>
+
+<p>
+论文中使用<b>几何自适应高斯核</b>去计算数据图片的Ground Truth：
