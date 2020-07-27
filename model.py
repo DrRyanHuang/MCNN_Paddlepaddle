@@ -9,7 +9,7 @@
 @notice:
     If you have suggestions or find bugs, please be sure to tell me. Thanks!
 """
-
+		
 class ConvBNLayer(fluid.dygraph.Layer):
     '''
     @Brife:
@@ -229,3 +229,23 @@ class MCNN(fluid.dygraph.Layer):
         	conv_pre = self.convS(cnn_S)
 	    
 	    return conv_pre
+
+
+    '''
+    @Brife:
+        数据增广: 将图片进行缩放操作
+    @Param:
+        src      :   原图片(np.ndarray) 或者 图片路径字符串
+        center   :   设置仿射中心(按照比例设置或者直接按照像素坐标设置都可以)
+        scale    :   旋转后图像的缩放比例(缩放是以`center`为仿射中心)
+    @Return:
+        rst      :   缩放后的结果图片
+    @Notice:
+        1.由于使用的是`openCV`处理图片, 故而所有图片都是BGR的
+        2.即使是灰度图片, 也会读为三通道图片
+    '''
+    # ----------- src 部分多态 --------------
+    if isinstance(src, np.ndarray):
+        pass
+    elif isinstance(src, str) and os.path.exists(src):
+        src = cv2.imread(src)
