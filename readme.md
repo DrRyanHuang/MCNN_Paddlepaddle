@@ -34,7 +34,8 @@ MCNN受MDNNs的启发，由三列并行的CNN组成，每列CNN卷积核大小�
 <p>
 MCNN在训练时，存在<b>数据样本少和梯度消失</b>的问题，受预训练模型RBM的启发，作者将三列CNN单独进行预训练，将这些预训练的CNN参数初始化为对应的MCNN参数并微调。需要补充的是，MCNN使用了最简单的均方误差作为损失函数。
 </p>
-
+<br/>
+<br/>
 <p>
 论文中使用<b>几何自适应高斯核</b>去计算数据图片的Ground Truth：
 </p>
@@ -44,3 +45,11 @@ MCNN在训练时，存在<b>数据样本少和梯度消失</b>的问题，受预
 <p>
 在<b>Figure 2</b>中，显示了两张图片的人群密度图。值得说明的是，由于经过了两次下采样，所以预测出人群密度图的分辨率变为原来的1/4.
 </p>
+
+<img src="https://github.com/DrRyanHuang/MCNN_Paddlepaddle/blob/master/src/figure2.png"  alt="figure2"/>
+
+<p align="center">
+<b>图 2</b>：原始图像和通过几何自适应高斯核进行卷积获得的相应的人群密度图。</br>
+<b>Figure 2</b>：Original images and corresponding crowd density maps obtained by convolving geometry-adaptive Gaussian kernels.
+</p>
+
