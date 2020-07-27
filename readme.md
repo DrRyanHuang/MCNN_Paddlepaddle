@@ -13,4 +13,4 @@ MCNN是CVPR2016年的一篇论文。论文地址:
 
 
 
-![author](D:\git\MCNN_paddlepaddle\src\author.png)
+![author](https://github.com/DrRyanHuang/MCNN_Paddlepaddle/blob/master/src/author.png)
