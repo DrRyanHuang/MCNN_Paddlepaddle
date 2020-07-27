@@ -27,7 +27,6 @@ MCNN受MDNNs的启发，由三列并行的CNN组成，每列CNN卷积核大小�
 </p>
 
 <br/>
-<br/>
 
 <img src="https://github.com/DrRyanHuang/MCNN_Paddlepaddle/blob/master/src/archit.png"  alt="archit" width="1000" height="400"/>
 
@@ -39,7 +38,7 @@ MCNN受MDNNs的启发，由三列并行的CNN组成，每列CNN卷积核大小�
 <p>
 MCNN在训练时，存在<b>数据样本少和梯度消失</b>的问题，受预训练模型RBM的启发，作者将三列CNN单独进行预训练，将这些预训练的CNN参数初始化为对应的MCNN参数并微调。需要补充的是，MCNN使用了最简单的均方误差作为损失函数。
 </p>
-<br/>
+
 <br/>
 
 <p>
