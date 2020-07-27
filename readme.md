@@ -27,6 +27,6 @@ MCNN受MDNNs的启发，由三列并行的CNN组成，每列CNN卷积核大小�
 </p>
 <img src="https://github.com/DrRyanHuang/MCNN_Paddlepaddle/blob/master/src/archit.png"  alt="archit" width="1000" height="400"/>
 
-<p align="center"><b>图 1</b>：用于人群密度图估计的多列卷积神经网络(MCNN)的结构</p>
-<p align="center"><b>Figure 1</b>：The structure of the proposed multi-column convolutional neural network for crowd density map estimation.</p>
+<p align="center"><b>图 1</b>：用于人群密度图估计的多列卷积神经网络(MCNN)的结构<br/>
+<b>Figure 1</b>：The structure of the proposed multi-column convolutional neural network for crowd density map estimation.</p>
 
