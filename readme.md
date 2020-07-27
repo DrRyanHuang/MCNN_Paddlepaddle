@@ -69,11 +69,42 @@ MCNN在训练时，存在<b>数据样本少和梯度消失</b>的问题，受预
 <p>
 MCNN几乎可以从任何观察角度准确估计单个图像中的人群数，在2016年，取得了人群计数领域<b>state-of-art</b>的成绩。同时作者还指出，仅需要对模型最后几层进行微调，便可以将模型轻松迁移到目标问题，验证了模型的鲁棒性。</br></br>在论文中，还有很多细节，本篇不再赘述，可以查看原论文<a href=https://www.cv-foundation.org/openaccess/content_cvpr_2016/papers/Zhang_Single-Image_Crowd_Counting_CVPR_2016_paper.pdf>MCNN</a>
 </p>
-<p>
-近日，笔者基于<b>飞桨开源框架(Paddlepaddle)</b>复现了MCNN
+##### 1.基于<b>飞桨开源框架(Paddlepaddle)</b>复现MCNN
+
+环境依赖:
+
+```shell
+paddlepaddle >= 1.7.0
+numpy
+matplotlib
+PIL 
+opencv-python
+```
+
+##### 2. 训练策略
+	MCNN受到预训练模型的启发，先将三列CNN单独训练，之后将CNN的参数初始化为MCNN对应的参数之后，整体再进行训练，在原论文中，训练策略为批随机梯度下降法。
+
+##### 3.模型复现效果
+
+我们可以对比使用飞桨的训练效果和原论文的训练效果：
+
+<p align="center">
+<img src="https://github.com/DrRyanHuang/MCNN_Paddlepaddle/blob/master/src/figure3.png"  alt="figure3"/>
 </p>
 
-##### 
+<p align="center">
+<b>图 3</b>：原论文中两张测试集图片的真实人群密度图和估计人群密度图</br>
+<b>Figure 3</b>：The ground truth density map and estimated density map of our MCNN Model of the test image
+</p>
 
+<p align="center">
+<img src="https://github.com/DrRyanHuang/MCNN_Paddlepaddle/blob/master/src/figure4.png"  alt="figure4"/>
+</p>
 
+<p align="center">
+<b>图 4</b>：基于飞桨的测试集图片回归结果，从左至右分别是原图、人头标注图、
+真实人群密度图和估计人群密度图
+</br>
+<b>Figure 4</b>：Results based on Paddlepaddle
+</p>
 
