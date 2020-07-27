@@ -33,13 +33,15 @@ MCNN受MDNNs的启发，由三列并行的CNN组成，每列CNN卷积核大小�
 
 <p align="center"><b>图 1</b>：用于人群密度图估计的多列卷积神经网络(MCNN)的结构<br/>
 <b>Figure 1</b>：The structure of the proposed multi-column convolutional neural network for crowd density map estimation.</p>
-
+<br/>
+<br/>
 
 <p>
 MCNN在训练时，存在<b>数据样本少和梯度消失</b>的问题，受预训练模型RBM的启发，作者将三列CNN单独进行预训练，将这些预训练的CNN参数初始化为对应的MCNN参数并微调。需要补充的是，MCNN使用了最简单的均方误差作为损失函数。
 </p>
 <br/>
 <br/>
+
 <p>
 论文中使用<b>几何自适应高斯核</b>去计算数据图片的Ground Truth：
 </p>
@@ -67,15 +69,11 @@ MCNN在训练时，存在<b>数据样本少和梯度消失</b>的问题，受预
 <p>
 MCNN几乎可以从任何观察角度准确估计单个图像中的人群数，在2016年，取得了人群计数领域<b>state-of-art</b>的成绩。同时作者还指出，仅需要对模型最后几层进行微调，便可以将模型轻松迁移到目标问题，验证了模型的鲁棒性。</br></br>在论文中，还有很多细节，本篇不再赘述，可以查看原论文<a href=https://www.cv-foundation.org/openaccess/content_cvpr_2016/papers/Zhang_Single-Image_Crowd_Counting_CVPR_2016_paper.pdf>MCNN</a>
 </p>
-
 <p>
 近日，笔者基于<b>飞桨开源框架(Paddlepaddle)</b>复现了MCNN
 </p>
 
-<br/>
-<br/>
-
-##### 1. 搭建MCNN网络
+##### 
 
 
 
