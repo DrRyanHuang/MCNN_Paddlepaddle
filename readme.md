@@ -7,9 +7,7 @@
 
 
 <br/>
-MCNN是CVPR2016年的一篇论文。论文地址:
-
-<font color='gray'>https://www.cv-foundation.org/openaccess/content_cvpr_2016/papers/Zhang_Single-Image_Crowd_Counting_CVPR_2016_paper.pdf</font>
+<a href=https://www.cv-foundation.org/openaccess/content_cvpr_2016/papers/Zhang_Single-Image_Crowd_Counting_CVPR_2016_paper.pdf>MCNN</a>是CVPR2016年的一篇论文
 
 
 
