@@ -1,1 +1,11 @@
-data
+data/data21781
+
+A_test_gt.txt
+A_test_img.txt
+A_train_gt.txt
+A_train_img.txt
+
+B_test_gt.txt
+B_test_img.txt
+B_train_gt.txt
+B_train_img.txt
