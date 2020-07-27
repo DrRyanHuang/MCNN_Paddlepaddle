@@ -67,3 +67,15 @@ MCNN在训练时，存在<b>数据样本少和梯度消失</b>的问题，受预
 <p>
 MCNN几乎可以从任何观察角度准确估计单个图像中的人群数，在2016年，取得了人群计数领域<b>state-of-art</b>的成绩。同时作者还指出，仅需要对模型最后几层进行微调，便可以将模型轻松迁移到目标问题，验证了模型的鲁棒性。</br></br>在论文中，还有很多细节，本篇不再赘述，可以查看原论文<a href=https://www.cv-foundation.org/openaccess/content_cvpr_2016/papers/Zhang_Single-Image_Crowd_Counting_CVPR_2016_paper.pdf>MCNN</a>
 </p>
+
+<p>
+近日，笔者基于<b>飞桨开源框架(Paddlepaddle)</b>复现了MCNN
+</p>
+
+<br/>
+<br/>
+
+##### 1. 搭建MCNN网络
+
+
+
