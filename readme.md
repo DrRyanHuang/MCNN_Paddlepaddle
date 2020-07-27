@@ -24,9 +24,8 @@
 <p>
 MCNN受MDNNs的启发，由三列并行的CNN组成，每列CNN卷积核大小不同。为了简化，所有列使用相同的网络结构(即conv-pooling-conv-pooling)。每次池化都会使用2*2的Max Pooling，而激活函数全部选择Relu。堆叠三列CNN的输出特征图，并使用1*1的卷积核将其映射为密度图。MCNN的整体架构图如<b>Figure 1</b>所示：
 </p>
+<img src="https://github.com/DrRyanHuang/MCNN_Paddlepaddle/blob/master/src/archit.png"  alt="archit" width="1000" height="500"/>
 
-<img src="https://github.com/DrRyanHuang/MCNN_Paddlepaddle/blob/master/src/archit.png"  alt="archit" />
 <p align="center"><b>图 1</b>：用于人群密度图估计的多列卷积神经网络(MCNN)的结构</p>
 <p align="center"><b>Figure 1</b>：The structure of the proposed multi-column convolutional neural network for crowd density map estimation.</p>
-
 
