@@ -15,7 +15,7 @@
 <br/>
 
 <p>
-<a href=https://www.cv-foundation.org/openaccess/content_cvpr_2016/papers/Zhang_Single-Image_Crowd_Counting_CVPR_2016_paper.pdf>MCNN</a>是CVPR2016年的一篇论文。作者提出了一种简单而有效的<b>多列卷积神经网络架构(Multi-column Convolutional Neural Network, MCNN)</b>，通过使用大小不同的卷积核去适应人/头部大小的变化，以将图片映射为人群密度图。作者在文章中使用了<b>几何自适应高斯核</b>去计算人群密度图(Ground Truth)，同时收集并标记了一个大型的新数据集(ShanghaiTech数据集)，其中包括1198幅图像，数据集可以在AI Studio上下载到: https://aistudio.baidu.com/aistudio/datasetdetail/10675 .
+<a href=https://www.cv-foundation.org/openaccess/content_cvpr_2016/papers/Zhang_Single-Image_Crowd_Counting_CVPR_2016_paper.pdf>MCNN</a>是CVPR2016年的一篇论文, 作者提出了一种简单而有效的<b>多列卷积神经网络架构(Multi-column Convolutional Neural Network, MCNN)</b>，通过使用大小不同的卷积核去适应人/头部大小的变化，以将图片映射为人群密度图。作者在文章中使用了<b>几何自适应高斯核</b>去计算人群密度图(Ground Truth)，同时收集并标记了一个大型的新数据集(ShanghaiTech数据集)，其中包括1198幅图像，数据集可以在AI Studio上下载到: https://aistudio.baidu.com/aistudio/datasetdetail/10675 .
 </p>
 
 <br/>
