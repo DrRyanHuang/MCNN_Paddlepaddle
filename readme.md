@@ -43,7 +43,11 @@ MCNN在训练时，存在<b>数据样本少和梯度消失</b>的问题，受预
 <p>
 论文中使用<b>几何自适应高斯核</b>去计算数据图片的Ground Truth：
 </p>
+
+
+<p align="center">
 <img src="https://github.com/DrRyanHuang/MCNN_Paddlepaddle/blob/master/src/formula.jpeg"  alt="公式" width="650" height="300"/>
+</p>
 
 
 <p>
