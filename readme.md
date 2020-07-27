@@ -6,11 +6,11 @@
 </p>
 
 
+<br/>
 MCNN是CVPR2016年的一篇论文。论文地址:
 
-
-
-<font color='gray'>https://www.cv-foundation.org/openaccess/content_cvpr_2016/papers/Zhang_Single-Image_Crowd_Counting_CVPR_2016_paper.pdf
+<font color='gray'>https://www.cv-foundation.org/openaccess/content_cvpr_2016/papers/Zhang_Single-Image_Crowd_Counting_CVPR_2016_paper.pdf</font>
 
 
 
+![author](D:\git\MCNN_paddlepaddle\src\author.png)
