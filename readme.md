@@ -25,6 +25,10 @@
 <p>
 MCNN受MDNNs的启发，由三列并行的CNN组成，每列CNN卷积核大小不同。为了简化，所有列使用相同的网络结构(即conv-pooling-conv-pooling)。每次池化都会使用2*2的Max Pooling，而激活函数全部选择Relu。堆叠三列CNN的输出特征图，并使用1*1的卷积核将其映射为密度图。MCNN的整体架构图如<b>Figure 1</b>所示：
 </p>
+
+<br/>
+<br/>
+
 <img src="https://github.com/DrRyanHuang/MCNN_Paddlepaddle/blob/master/src/archit.png"  alt="archit" width="1000" height="400"/>
 
 <p align="center"><b>图 1</b>：用于人群密度图估计的多列卷积神经网络(MCNN)的结构<br/>
@@ -39,7 +43,7 @@ MCNN在训练时，存在<b>数据样本少和梯度消失</b>的问题，受预
 <p>
 论文中使用<b>几何自适应高斯核</b>去计算数据图片的Ground Truth：
 </p>
-<img src="https://github.com/DrRyanHuang/MCNN_Paddlepaddle/blob/master/src/formula.jpeg"  alt="公式" width="800" height="300"/>
+<img src="https://github.com/DrRyanHuang/MCNN_Paddlepaddle/blob/master/src/formula.jpeg"  alt="公式" width="650" height="300"/>
 
 
 <p>
@@ -53,3 +57,7 @@ MCNN在训练时，存在<b>数据样本少和梯度消失</b>的问题，受预
 <b>Figure 2</b>：Original images and corresponding crowd density maps obtained by convolving geometry-adaptive Gaussian kernels.
 </p>
 
+
+<p>
+MCNN几乎可以从任何观察角度准确估计单个图像中的人群数，在2016年，取得了人群计数领域<b>state-of-art</b>的成绩。同时作者还指出，仅需要对模型最后几层进行微调，便可以将模型轻松迁移到目标问题，验证了模型的鲁棒性。</br>在论文中，还有很多细节，本篇不再赘述，可以查看原论文<a href=https://www.cv-foundation.org/openaccess/content_cvpr_2016/papers/Zhang_Single-Image_Crowd_Counting_CVPR_2016_paper.pdf>MCNN</a>
+</p>
