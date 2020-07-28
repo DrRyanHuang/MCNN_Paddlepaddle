@@ -9,3 +9,4 @@ B_train_gt.txt
 B_train_img.txt
 
 data/data21781
+*.pdparams
