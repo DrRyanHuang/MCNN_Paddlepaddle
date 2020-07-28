@@ -9,7 +9,10 @@
 @notice:
     If you have suggestions or find bugs, please be sure to tell me. Thanks!
 """
-		
+from paddle.fluid.dygraph import Pool2D, Conv2D, Linear, Conv2DTranspose, BatchNorm
+from paddle.fluid.layers import concat, stack
+import paddle.fluid as fluid
+
 class ConvBNLayer(fluid.dygraph.Layer):
     '''
     @Brife:
@@ -24,6 +27,7 @@ class ConvBNLayer(fluid.dygraph.Layer):
                  stride=1,
                  groups=1,              # group参数暂时不用改
                  act='relu',
+                 padding=None,
                  name_scope=None,
                  use_bias=False):
 
@@ -34,7 +38,7 @@ class ConvBNLayer(fluid.dygraph.Layer):
             num_filters=num_filters,
             filter_size=filter_size,
             stride=stride,
-            padding=(filter_size - 1) // 2,
+            padding=(filter_size - 1)//2 if padding is None else padding,
             groups=groups,
             act=None,
             bias_attr=use_bias)
@@ -51,19 +55,19 @@ class ConvBNLayer(fluid.dygraph.Layer):
 class CONVLMS(fluid.dygraph.Layer):
 
     def __init__(self, channel_list, filter_list, use_bias=False, name_scope=None):
-    	'''
-    	@Brife:
-    		建立MCNN中任意一列的CNN, 用于为后续的MCNN做准备
-    	@Param:
-    		channel_list : MCNN中，每一列CNN有4次卷积，该变量用于存放4次卷积的卷积核个数
-    		filter_list  : MCNN中，每一列CNN有4次卷积，该变量用于存放4次卷积的卷积核size
-    		use_bias     : 是够在每一层卷积中使用偏置
-    		name_scope   : 命名空间
-    	@Return:
-			当前列的输出
-    	@Notice:
-    		None
-    	'''
+        '''
+        @Brife:
+            建立MCNN中任意一列的CNN, 用于为后续的MCNN做准备
+        @Param:
+            channel_list : MCNN中，每一列CNN有4次卷积，该变量用于存放4次卷积的卷积核个数
+            filter_list  : MCNN中，每一列CNN有4次卷积，该变量用于存放4次卷积的卷积核size
+            use_bias     : 是够在每一层卷积中使用偏置
+            name_scope   : 命名空间
+        @Return:
+            当前列的输出
+        @Notice:
+            None
+        '''
         super(CONVLMS, self).__init__(name_scope)
 
         self.conv_bn1 = ConvBNLayer(
@@ -73,7 +77,7 @@ class CONVLMS(fluid.dygraph.Layer):
                 padding=filter_list[0]//2, 
                 act='relu',
                 name_scope=self.full_name()
-				)
+                )
 
         self.conv_bn2 = ConvBNLayer(
                 num_channels=channel_list[0], 
@@ -81,7 +85,7 @@ class CONVLMS(fluid.dygraph.Layer):
                 filter_size=filter_list[1], 
                 padding=filter_list[1]//2, 
                 act='relu', 
-                name_scope=self.full_name()
+                name_scope=self.full_name(),
 				)
 
         self.pool1 = Pool2D(
@@ -119,16 +123,16 @@ class CONVLMS(fluid.dygraph.Layer):
         conv_bn1 = self.conv_bn1(inputs)
         # print(conv_bn1.shape)
 
-        conv_bn2 = self.conv_bn2(conv1)
+        conv_bn2 = self.conv_bn2(conv_bn1)
         # print(conv_bn2.shape)
 
-        pool1 = self.pool1(conv2)
+        pool1 = self.pool1(conv_bn2)
         # print(pool1.shape, 'pool')
 
         conv_bn3 = self.conv_bn3(pool1)
         # print(conv_bn3.shape)
 
-        pool2 = self.pool2(conv3)
+        pool2 = self.pool2(conv_bn3)
         # print(pool2.shape, 'pool')
 
         conv_bn4 = self.conv_bn4(pool2)
@@ -199,53 +203,41 @@ class MCNN(fluid.dygraph.Layer):
 
 
     def forward(self, inputs, pre_training=None):
-    	'''
-    	@Notice:
-    		`pre_training` 为 `None`时, 不进行预训练
-    		为 `'L', 'M', 'S'` 时, 进行对应的预训练
-    	'''
-    	if pre_training not in [None, 'L', 'M', 'S']:
-    		raise ValueError("变量`pre_training`的取值范围为`[None, 'L', 'M', 'S']`")
+        '''
+        @Notice:
+            `pre_training` 为 `None`时, 不进行预训练
+            为 `'L', 'M', 'S'` 时, 进行对应的预训练
+        '''
+        if pre_training not in [None, 'L', 'M', 'S']:
+            raise ValueError("变量`pre_training`的取值范围为`[None, 'L', 'M', 'S']`")
 
         cnn_L = self.CNN_L(inputs)
         cnn_M = self.CNN_M(inputs)
         cnn_S = self.CNN_S(inputs)
-        
+
         if pre_training is None:
 
-	        convall_pre = concat([cnn_L, cnn_M, cnn_S], axis=1)
-	        # print(convall_pre.shape)
-	        convall = self.convall(convall_pre)
-	        # print(convall.shape)
-	        return convall
-        
+            convall_pre = concat([cnn_L, cnn_M, cnn_S], axis=1)
+            # print(convall_pre.shape)
+            convall = self.convall(convall_pre)
+            # print(convall.shape)
+            return convall
+
         # ------------ 进行预训练的部分 ------------
- 
-        elif pre_training is 'L':
-        	conv_pre = self.convL(cnn_L)
-        elif pre_training is 'M':
-        	conv_pre = self.convM(cnn_M)
+
+        elif pre_training == 'L':
+            conv_pre = self.convL(cnn_L)
+        elif pre_training == 'M':
+            conv_pre = self.convM(cnn_M)
         else:
-        	conv_pre = self.convS(cnn_S)
-	    
-	    return conv_pre
+            conv_pre = self.convS(cnn_S)
 
-
-    '''
-    @Brife:
-        数据增广: 将图片进行缩放操作
-    @Param:
-        src      :   原图片(np.ndarray) 或者 图片路径字符串
-        center   :   设置仿射中心(按照比例设置或者直接按照像素坐标设置都可以)
-        scale    :   旋转后图像的缩放比例(缩放是以`center`为仿射中心)
-    @Return:
-        rst      :   缩放后的结果图片
-    @Notice:
-        1.由于使用的是`openCV`处理图片, 故而所有图片都是BGR的
-        2.即使是灰度图片, 也会读为三通道图片
-    '''
-    # ----------- src 部分多态 --------------
-    if isinstance(src, np.ndarray):
-        pass
-    elif isinstance(src, str) and os.path.exists(src):
-        src = cv2.imread(src)
+        return conv_pre
+        
+        
+        
+        
+        
+        
+        
+        
