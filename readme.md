@@ -86,25 +86,16 @@ opencv-python
 
 ##### 3.模型复现效果
 
-我们可以对比使用飞桨的训练效果和原论文的训练效果：
+我们可以对比使用飞桨的训练效果和原论文的训练效果，可以看出在AI Studio平台的算力加持下，基于飞桨的训练效果更加精确，多了更多细节.
 
 <p align="center">
 <img src="https://github.com/DrRyanHuang/MCNN_Paddlepaddle/blob/master/src/figure3.png"  alt="figure3"/>
 </p>
 
 <p align="center">
-<b>图 3</b>：原论文中两张测试集图片的真实人群密度图和估计人群密度图</br>
-<b>Figure 3</b>：The ground truth density map and estimated density map of our MCNN Model of the test image
+<b>图 3</b>：原论文中两张测试集图片的结果对比，从左到右分别是原图,
+Ground True,原论文复现图和基于飞桨的复现结果图</br>
+<b>Figure 3</b>：Comparing results
 </p>
 
-<p align="center">
-<img src="https://github.com/DrRyanHuang/MCNN_Paddlepaddle/blob/master/src/figure4.png"  alt="figure4"/>
-</p>
-
-<p align="center">
-<b>图 4</b>：基于飞桨的测试集图片回归结果，从左至右分别是原图、人头标注图、
-真实人群密度图和估计人群密度图
-</br>
-<b>Figure 4</b>：Results based on Paddlepaddle
-</p>
 
